@@ -1,0 +1,28 @@
+[
+	{
+		"Name": "FIREBALL",
+		"Description": "aaaaaa",
+		"Image": "/Script/Engine.Texture2D'/Engine/EngineResources/AICON-Green.AICON-Green'",
+		"SkillBP": "/Script/Engine.BlueprintGeneratedClass'/Game/Skills/BP_Skill1.BP_Skill1_C'",
+		"BaseDamage": 2,
+		"Scale":
+		{
+			"X": 1,
+			"Y": 1,
+			"Z": 1
+		}
+	},
+	{
+		"Name": "NewRow",
+		"Description": "LIGHT",
+		"Image": "/Script/Engine.Texture2D'/Engine/EditorResources/Ai_Spawnpoint.Ai_Spawnpoint'",
+		"SkillBP": "/Script/Engine.BlueprintGeneratedClass'/Game/Skills/BP_Skill1.BP_Skill1_C'",
+		"BaseDamage": 3,
+		"Scale":
+		{
+			"X": 1,
+			"Y": 1,
+			"Z": 1
+		}
+	}
+]

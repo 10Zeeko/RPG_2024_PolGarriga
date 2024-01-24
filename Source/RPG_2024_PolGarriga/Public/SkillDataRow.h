@@ -10,7 +10,8 @@ UENUM(BlueprintType)
 enum ESkill
 {
 	NONE = 0,
-	FIREBALL
+	FIREBALL,
+	LIGHT
 };
 
 USTRUCT(Blueprintable, BlueprintType)

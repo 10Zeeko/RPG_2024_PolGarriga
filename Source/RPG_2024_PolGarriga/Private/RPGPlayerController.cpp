@@ -83,5 +83,5 @@ FSkillDataRow* ARPGPlayerController::GetSkill(ESkill aSkill)
 		SkillFound = mSkillDB->FindRow<FSkillDataRow>(SkillString, FindContext, true);
 	}
 	
-	return nullptr;
+	return SkillFound;
 }
