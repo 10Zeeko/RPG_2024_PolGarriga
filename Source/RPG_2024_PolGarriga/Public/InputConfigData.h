@@ -7,6 +7,7 @@
 #include "InputConfigData.generated.h"
 
 class UInputAction;
+
 UCLASS()
 class RPG_2024_POLGARRIGA_API UInputConfigData : public UDataAsset
 {
@@ -15,4 +16,10 @@ class RPG_2024_POLGARRIGA_API UInputConfigData : public UDataAsset
 public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	UInputAction* mpInputMove;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	UInputAction* mpInputAct;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	TArray<UInputAction*> mpInputSkills;
 };
