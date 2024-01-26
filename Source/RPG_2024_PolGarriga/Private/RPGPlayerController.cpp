@@ -30,6 +30,7 @@ void ARPGPlayerController::SetupInputComponent()
 	UEnhancedInputComponent* EInputComponent {Cast<UEnhancedInputComponent>(InputComponent)};
 	EInputComponent->BindAction(mpInputData->mpInputMove, ETriggerEvent::Triggered, this, &ARPGPlayerController::OnSetDestinationPressed);
 	EInputComponent->BindAction(mpInputData->mpInputMove, ETriggerEvent::Completed, this, &ARPGPlayerController::OnSetDestinationReleased);
+	EInputComponent->BindAction(mpInputData->mpInputAct, ETriggerEvent::Completed, this, &ARPGPlayerController::OnActPressed);
 
 	for (int ButtonIndex {0}; ButtonIndex < mpInputData->mpInputSkills.Num(); ButtonIndex++)
 	{
@@ -70,6 +71,15 @@ void ARPGPlayerController::OnSkillPressed(int aButtonPressed)
 			mSkillSelected = *Skill;
 		}
 	}
+}
+
+void ARPGPlayerController::OnActPressed(const FInputActionValue& aValue)
+{
+	if (mSkillSelected.Name == ESkill::NONE) return;
+	FVector HitLocation {FVector::ZeroVector};
+	GetHitResultUnderCursorByChannel(TraceTypeQuery1, true, mHitResult);
+
+	evOnLocationClick.Broadcast(mHitResult.Location, mSkillSelected);
 }
 
 FSkillDataRow* ARPGPlayerController::GetSkill(ESkill aSkill)

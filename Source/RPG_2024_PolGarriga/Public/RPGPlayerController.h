@@ -13,6 +13,10 @@ class UInputMappingContext;
 class UNiagaraSystem;
 struct FInputActionValue;
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnLocationClick, FVector, aClickLocation, const FSkillDataRow&, aSkillData);
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnDirectionSkillCast, FRotator, aRotation, FSkillDataRow, aSkillData);
+
 UCLASS()
 class RPG_2024_POLGARRIGA_API ARPGPlayerController : public APlayerController
 {
@@ -44,6 +48,15 @@ public:
 	FSkillDataRow mSkillSelected;
 	
 #pragma endregion
+
+#pragma region EVENTS
+	UPROPERTY(BlueprintAssignable, BlueprintCallable)
+	FOnLocationClick evOnLocationClick;
+
+	UPROPERTY(BlueprintAssignable, BlueprintCallable)
+	FOnDirectionSkillCast evOnDirectionSkillCast;
+
+#pragma endregion
 protected:
 	virtual void BeginPlay() override;
 	virtual void PlayerTick(float DeltaTime) override;
@@ -53,6 +66,7 @@ protected:
 	void OnSetDestinationReleased(const FInputActionValue& aValue);
 
 	void OnSkillPressed(int aButtonPressed);
+	void OnActPressed(const FInputActionValue& aValue);
 private:
 	FHitResult mHitResult {};
 	bool mSetDestination {false};

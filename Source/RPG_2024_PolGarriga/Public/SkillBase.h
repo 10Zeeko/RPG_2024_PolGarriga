@@ -14,13 +14,19 @@ class RPG_2024_POLGARRIGA_API ASkillBase : public AActor
 public:	
 	// Sets default values for this actor's properties
 	ASkillBase();
+	virtual void Tick(float DeltaTime) override;
 
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(ExposeOnSpawn=true))
+	AActor* mpTarget;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(ExposeOnSpawn=true))
+	float mDamage;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(ExposeOnSpawn=true))
+	float mDuration;
+	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 
 };
