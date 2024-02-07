@@ -1,14 +1,14 @@
 #include "RPGPlayerCharacter.h"
 
 #include "GameFramework/CharacterMovementComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "GameFramework/SpringArmComponent.h"
 
 ARPGPlayerCharacter::ARPGPlayerCharacter()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
-	bUseControllerRotationPitch = 
-		bUseControllerRotationRoll =
-		bUseControllerRotationYaw = false;
+	bUseControllerRotationPitch = bUseControllerRotationRoll = bUseControllerRotationYaw = false;
 
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	GetCharacterMovement()->RotationRate = {0.0f, 600.0f, 0.0f};
