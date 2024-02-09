@@ -12,7 +12,7 @@ void ARPGPlayerController::BeginPlay()
 	Super::BeginPlay();
 	mpPlayerCharacter = Cast<ARPGPlayerCharacter>(GetCharacter());
 	bShowMouseCursor = true;
-	
+	SetupPlayerStats();
 }
 
 void ARPGPlayerController::PlayerTick(float DeltaTime)
@@ -80,6 +80,31 @@ void ARPGPlayerController::OnActPressed(const FInputActionValue& aValue)
 	GetHitResultUnderCursorByChannel(TraceTypeQuery1, true, mHitResult);
 
 	evOnLocationClick.Broadcast(mHitResult.Location, mSkillSelected);
+}
+
+FStatsDataRow* ARPGPlayerController::GetStats(EStat aStat)
+{
+	FStatsDataRow* StatFound{};
+
+	if (mSkillDB)
+	{
+		FName StatString {UEnum::GetDisplayValueAsText(aStat).ToString()};
+		static const FString FindContext {FString("Searching for ").Append(StatString.ToString())};
+		StatFound = mStatsDB->FindRow<FStatsDataRow>(StatString, FindContext, true);
+	}
+	return StatFound;
+}
+
+void ARPGPlayerController::SetupPlayerStats()
+{
+	const FStatsDataRow* aStat{GetStats(mStatSelected)};
+	mHP = aStat->mHP;
+	mDamage = aStat->mDamage;
+	mMagicDamage = aStat->mMagicDamage;
+	mAttackSpeed = aStat->mAttackSpeed;
+	mHabilitySpeed = aStat->mHabilitySpeed;
+	mDefense = aStat->mDefense;
+	mMoveSpeed = aStat->mSpeed;
 }
 
 FSkillDataRow* ARPGPlayerController::GetSkill(ESkill aSkill)

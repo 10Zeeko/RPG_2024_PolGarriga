@@ -3,10 +3,12 @@
 #include "CoreMinimal.h"
 #include "InputActionValue.h"
 #include "SkillDataRow.h"
+#include "StatsDataRow.h"
 #include "GameFramework/PlayerController.h"
 #include "RPGPlayerController.generated.h"
 
 struct FSkillDataRow;
+struct FStatDataRow;
 class ARPGPlayerCharacter;
 class UInputConfigData;
 class UInputMappingContext;
@@ -14,6 +16,8 @@ class UNiagaraSystem;
 struct FInputActionValue;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnLocationClick, FVector, aClickLocation, const FSkillDataRow&, aSkillData);
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FGetStats, FVector, aClickLocation, const FSkillDataRow&, aSkillData);
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnDirectionSkillCast, FRotator, aRotation, FSkillDataRow, aSkillData);
 
@@ -37,11 +41,39 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	float mThresholdPress;
 
+#pragma region STATS
+	FStatsDataRow* GetStats(EStat stat);
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category=mSTAT)
+	EStat mStatSelected;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category=mSTAT)
+	UDataTable* mStatsDB;
+
+	void SetupPlayerStats();
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category=mSTAT)
+	float mHP {0.0f};
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category=mSTAT)
+	float mDamage {0.0f};
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category=mSTAT)
+	float mMagicDamage {0.0f};
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category=mSTAT)
+	float mAttackSpeed {0.0f};
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category=mSTAT)
+	float mHabilitySpeed {0.0f};
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category=mSTAT)
+	float mDefense {0.0f};
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category=mSTAT)
+	float mMoveSpeed {0.0f};
+
+#pragma endregion
+	
 #pragma region SKILLS
 	FSkillDataRow* GetSkill(ESkill skill);
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category=mSKILL)
-	TArray<TEnumAsByte<ESkill>> mSkills;
+	TArray<ESkill> mSkills;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category=mSKILL)
 	UDataTable* mSkillDB;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category=mSKILL)
@@ -52,6 +84,9 @@ public:
 #pragma region EVENTS
 	UPROPERTY(BlueprintAssignable, BlueprintCallable)
 	FOnLocationClick evOnLocationClick;
+
+	UPROPERTY(BlueprintAssignable, BlueprintCallable)
+	FGetStats evGetStats;
 
 	UPROPERTY(BlueprintAssignable, BlueprintCallable)
 	FOnDirectionSkillCast evOnDirectionSkillCast;

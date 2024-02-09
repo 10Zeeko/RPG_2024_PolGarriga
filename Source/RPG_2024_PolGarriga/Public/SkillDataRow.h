@@ -7,11 +7,11 @@
 
 class ASkillBase;
 UENUM(BlueprintType)
-enum ESkill
+enum class ESkill
 {
-	NONE = 0,
-	FIREBALL,
-	LIGHT
+	NONE = 0 UMETA(DisplayName = "None"),
+	FIREBALL UMETA(DisplayName = "Fireball"),
+	LIGHT UMETA(DisplayName = "Light")
 };
 
 USTRUCT(Blueprintable, BlueprintType)
@@ -20,7 +20,7 @@ struct FSkillDataRow : public FTableRowBase
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TEnumAsByte<ESkill> Name {ESkill::NONE};
+	ESkill Name {ESkill::NONE};
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString Description;
