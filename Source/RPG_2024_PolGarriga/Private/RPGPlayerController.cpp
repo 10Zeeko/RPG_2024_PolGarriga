@@ -51,7 +51,17 @@ void ARPGPlayerController::OnSetDestinationReleased(const FInputActionValue& aVa
 	{
 		FVector HitLocation {FVector::ZeroVector};
 		GetHitResultUnderCursor(ECC_Visibility, true, mHitResult);
-		HitLocation = mHitResult.Location;
+		// if we hit something check if it's a pawn or a location
+		if (mHitResult.bBlockingHit)
+		{
+			ScreenD("Location Clicked");
+			HitLocation = mHitResult.Location;
+		}
+		else if (mHitResult.GetActor())
+		{
+			ScreenD("Actor Clicked");
+			HitLocation = mHitResult.GetActor()->GetActorLocation();
+		}
 
 		UAIBlueprintHelperLibrary::SimpleMoveToLocation(this, HitLocation);
 		if (mpFXCursor)
