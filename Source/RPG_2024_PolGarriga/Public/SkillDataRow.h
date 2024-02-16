@@ -7,11 +7,13 @@
 
 class ASkillBase;
 UENUM(BlueprintType)
-enum class ESkill
+enum class ESkill : uint8
 {
 	NONE = 0 UMETA(DisplayName = "None"),
 	FIREBALL UMETA(DisplayName = "Fireball"),
-	LIGHT UMETA(DisplayName = "Light")
+	LIGHT UMETA(DisplayName = "Light"),
+	HEAL UMETA(DisplayName = "Heal"),
+	SMOKE UMETA(DisplayName = "Smoke")
 };
 
 USTRUCT(Blueprintable, BlueprintType)

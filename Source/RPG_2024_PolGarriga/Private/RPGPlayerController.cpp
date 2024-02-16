@@ -30,7 +30,7 @@ void ARPGPlayerController::SetupInputComponent()
 	UEnhancedInputComponent* EInputComponent {Cast<UEnhancedInputComponent>(InputComponent)};
 	EInputComponent->BindAction(mpInputData->mpInputMove, ETriggerEvent::Triggered, this, &ARPGPlayerController::OnSetDestinationPressed);
 	EInputComponent->BindAction(mpInputData->mpInputMove, ETriggerEvent::Completed, this, &ARPGPlayerController::OnSetDestinationReleased);
-	EInputComponent->BindAction(mpInputData->mpInputAct, ETriggerEvent::Completed, this, &ARPGPlayerController::OnActPressed);
+	//EInputComponent->BindAction(mpInputData->mpInputAct, ETriggerEvent::Completed, this, &ARPGPlayerController::OnActPressed);
 
 	for (int ButtonIndex {0}; ButtonIndex < mpInputData->mpInputSkills.Num(); ButtonIndex++)
 	{
@@ -79,6 +79,7 @@ void ARPGPlayerController::OnSkillPressed(int aButtonPressed)
 		{
 			ScreenD(Format1("Skill: %s", *Skill->Description));
 			mSkillSelected = *Skill;
+			OnActPressed(FInputActionValue());
 		}
 	}
 }
