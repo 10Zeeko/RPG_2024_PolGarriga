@@ -5,7 +5,7 @@
 - [x] Game class system (Knight, mage, tank)
 - [x] Combat system
 - [x] Enemies
-- [x] Player habilities
+- [x] Player abilities
 
 ## Optional Challenges
 
